@@ -4,6 +4,11 @@ language: python
 python:
   - "2.7"
 
+env:
+  matrix:
+  - TESTS=trial
+  - TESTS=lint
+
 install:
   - pip install -U pip
   - |
@@ -14,4 +19,7 @@ install:
 
 # Tests running commands
 script:
-  - trial pyflakes
+  - condition: TESTS == 'trial'
+    cmd: trial pyflakes
+  - condition: TESTS == 'lint'
+    cmd: pyflakes pyflakes
